@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Academic;
+use App\Models\Country;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -13,6 +15,7 @@ class StudentController extends Controller
 
 
     }
+    
     public function create(){
         return view('student.create');
     }
@@ -38,26 +41,47 @@ class StudentController extends Controller
     public function edit(Student $student){
         return view('student.edit',compact('student'));
     }
-    public function update(Student $student,Request $request){
-        $student->update([
-            'name'=> $request->name,
-            'age'=> $request->age,
-            'address'=> $request->address,
-        ]);
-        $student->academic()->update([
-            'course'=>$request->course,
-            'year'=>$request->year
-        ]);
+    public function update(Request $request, Student $student)
+{
+    $student->update([
+        'name' => $request->input('name'),
+        'age' => $request->input('age'),
+        'address' => $request->input('address'),
+    ]);
 
-        $student->country()->update([
-            'continent'=>$request->continent,
-            'name'=>$request->name,
-            'capital' =>$request->capital,
-        ]);
-        return redirect ('students ')->with('message','The Data has been Updated Successfully ');
-    }
+    // Update associated academic record
+    $student->academic()->update([
+        'course' => $request->input('course'),
+        'year' => $request->input('year'),
+    ]);
+
+    // Update associated country record
+    $student->country()->update([
+        'continent' => $request->input('continent'),
+        'name' => $request->input('name_country'),
+        'capital' => $request->input('capital'),
+    ]);
+
+    return redirect()->route('students.index')->with('success', 'Student details updated successfully.');
+}
     public function destroy(Student $student){
         $student->delete();
         return redirect('students')->with('message',"The Data has been Deleted Successfully");
     }
+
+    public function destroyAcademic(Student $student)
+{
+    $student->academic->delete();
+
+    return redirect()->back()->with('message', 'Academic record deleted successfully.');
+}
+
+public function destroyCountry(Student $student)
+{
+    $student->country->delete();
+
+    return redirect()->back()->with('message', 'Country record deleted successfully.');
+}
+    
+    
 }

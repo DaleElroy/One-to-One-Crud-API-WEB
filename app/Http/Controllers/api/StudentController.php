@@ -31,14 +31,16 @@ class StudentController extends Controller
     public function update(Request $request, $id){
         $student = Student::findOrFail($id);
         $student->update($request->all());
-
+    
         if ($request->has('academic')) {
-            $student->academic->update($request->input('academic'));
+            $student->academic()->update($request->input('academic'));
+        }
+    
         if ($request->has('country')) {
-            $student->country->update($request->input('country'));
+            $student->country()->update($request->input('country'));
         }
-        return response()->json(['student' => "hi"->$student]);
-        }
+    
+        return response()->json(['student' => $student]);
     }
     public function destroy($id){
         $student = Student::find($id);

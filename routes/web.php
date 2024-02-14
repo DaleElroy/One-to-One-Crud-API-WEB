@@ -14,9 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 Route::controller(StudentController::class)->group(function(){
     Route::get('/students','index');
     route::get('/students/create','create');
@@ -24,5 +22,13 @@ Route::controller(StudentController::class)->group(function(){
     Route::get('/students/{student}/edit','edit');
     Route::put('/students/{student}','update');
     Route::delete('/students/{student}','destroy');
+
+    Route::delete('/students/{country}','destroyCountry')->name('students.destroyCountry');
+    Route::delete('/students/{academic}/destoryAcademic','destroyAcademic')->name('students.destroyAcademic');
     
 });
+
+Route::get('students', [StudentController::class, 'index'])->name('students.index');
+Route::delete('students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
+Route::delete('students/{student}/destroyAcademic', [StudentController::class, 'destroyAcademic'])->name('students.destroyAcademic');
+Route::delete('students/{student}/destroyCountry', [StudentController::class, 'destroyCountry'])->name('students.destroyCountry');

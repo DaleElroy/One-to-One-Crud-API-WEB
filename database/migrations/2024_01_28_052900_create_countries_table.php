@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
-            $table->string('continent');
-            $table->string('name');
-            $table->string('capital');
+            $table->string('continent')->nullable();
+            $table->string('name')->nullable();
+            $table->string('capital')->nullable();
             $table->bigInteger('student_id')->unsigned();
             $table->foreign('student_id')->references('id')->on('students')->onDelete('cascade');
             

@@ -18,17 +18,21 @@
                             <table class="table table-boarded table-striped">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                        <th>ID Stduent</th>
                                         <th>Name</th>
                                         <th>Age</th>
                                         <th>Address</th>
+
+                                        <th>ID Academic</th>
                                         <th>Course</th>
                                         <th>Year</th>
+
+                                        <th>ID Country</th>
                                         <th>Continent</th>
                                         <th>Name</th>
                                         <th>Capital</th>
 
-                                        <th>Action</th>
+                                        <th style="text-align: center">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -38,8 +42,20 @@
                                             <td>{{ $student->name }}</td>
                                             <td>{{ $student->age }}</td>
                                             <td>{{ $student->address }}</td>
+
+
+
+
+                                            <td>{{ optional($student->academic)->id }}</td>
                                             <td>{{ optional($student->academic)->course }}</td>
                                             <td>{{ optional($student->academic)->year }}</td>
+
+
+
+
+
+
+                                            <td>{{ optional($student->country)->id }}</td>
                                             <td>{{ optional($student->country)->continent }}</td>
                                             <td>{{ optional($student->country)->name }}</td>
                                             <td>{{ optional($student->country)->capital }}</td>
@@ -53,7 +69,24 @@
                                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                                 </form>
 
+                                           
+                                            <form
+                                                action="{{ route('students.destroyAcademic', ['student' => $student->id]) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete
+                                                    Academic</button>
+                                            </form>
+                                            <form
+                                                action="{{ route('students.destroyCountry', ['student' => $student->id]) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete Country</button>
+                                            </form>
                                             </td>
+
                                         </tr>
                                     @endforeach
 

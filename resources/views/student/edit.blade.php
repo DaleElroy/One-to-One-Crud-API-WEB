@@ -33,31 +33,29 @@
 
                         <div class="mb-3">
                             <label>Course</label>
-                            <input type="text" name="course" class="form-control" value="{{$student->academic->course}}">
+                            <input type="text" name="course" class="form-control" value="{{ $student->academic ? $student->academic->course : '' }}">
                         </div>
-
+                        
                         <div class="mb-3">
                             <label>Year</label>
-                            <input type="text" name="year" class="form-control" value="{{$student->academic->year}}">
+                            <input type="text" name="year" class="form-control" value="{{ $student->academic ? $student->academic->year : '' }}">
                         </div>
-
-                        <h4>Country of Student</h4>
-
+                        <h4>Student Country</h4>
+                        
                         <div class="mb-3">
                             <label>Continent</label>
-                            <input type="text" name="continent" class="form-control" value="{{$student->country->continent}}">
+                            <input type="text" name="continent" class="form-control" value="{{ $student->country ? $student->country->continent : '' }}">
                         </div>
-
+                        
                         <div class="mb-3">
                             <label>Name</label>
-                            <input type="text" name="name_country" class="form-control" value="{{$student->country->name}}">
+                            <input type="text" name="name_country" class="form-control" value="{{ $student->country ? $student->country->name : '' }}">
                         </div>
-
+                        
                         <div class="mb-3">
                             <label>Capital</label>
-                            <input type="text" name="capital" class="form-control" value="{{$student->country->capital}}">
+                            <input type="text" name="capital" class="form-control" value="{{ $student->country ? $student->country->capital : '' }}">
                         </div>
-
                         <div class="mb-3">
                             <button type="submit " class="btn btn-primary ">Update</button>
                         </div>
